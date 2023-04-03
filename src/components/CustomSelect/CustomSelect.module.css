@@ -1,0 +1,60 @@
+.custom_select {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 4px;
+    user-select: none;
+}
+
+.selected_option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #000;
+    cursor: pointer;
+}
+
+.options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    color: #000;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    transform-origin: top;
+    transition: transform 0.3s ease-out;
+    z-index: 1;
+}
+
+.option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.option.active,
+.option:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/*.options {*/
+/*    transform: scaleY(0);*/
+/*    transform-origin: top;*/
+/*}*/
+
+/*.options {*/
+/*    transform: scaleY(1);*/
+/*}*/

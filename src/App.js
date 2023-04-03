@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import {useEffect, useState} from "react";
+
+import {exchangeService} from "./service/exchange.service";
+
+import Header from "./components/Header/Header";
+import Exchange from "./components/Exchange/Exchange";
+import Loader from "./components/UI/Loader/Loader";
+import css from "./App.module.css";
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [isPostLoading, setIsPostLoading] = useState(false);
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        setIsPostLoading(true);
+        await exchangeService.getAll().then(value => {
+            const selectedData = value.data.filter(item => item.cc === 'USD' || item.cc === 'EUR');
+            const trimRateData = selectedData.map(item => {
+                return {...item, rate: item.rate.toFixed(2)}
+            });
+            setData([{r030: 1, txt: 'Гривня', rate: 1, cc: 'UA'}, ...trimRateData]);
+        });
+        setIsPostLoading(false);
+    }
+
+    return (
+        data && !isPostLoading
+            ? <>
+                <Header data={data}/>
+                <Exchange data={data}/>
+            </>
+            : <div className={css.wrap_loader}><Loader/></div>
+    );
 }
 
 export default App;
