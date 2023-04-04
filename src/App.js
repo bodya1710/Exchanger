@@ -12,7 +12,6 @@ import css from "./App.module.css";
 function App() {
 
     const [isPostLoading, setIsPostLoading] = useState(false);
-
     const [data, setData] = useState(null);
 
     useEffect(() => {
